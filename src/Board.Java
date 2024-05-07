@@ -2,7 +2,7 @@ public class Board {
     private static final int BOARD_SIZE = 3;
     private static final char EMPTY_CELL = ' ';
 
-    private char[][] board;
+    private final char[][] board;
 
     public Board() {
         board = new char[BOARD_SIZE][BOARD_SIZE];
