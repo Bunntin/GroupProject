@@ -1,7 +1,7 @@
 public class Game {
-    private Board board;
-    private Player playerX;
-    private Player playerO;
+    private final Board board;
+    private final Player playerX;
+    private final Player playerO;
     private Player currentPlayer;
 
     public Game(Board board, Player playerX, Player playerO) {
@@ -31,18 +31,14 @@ public class Game {
     private boolean checkWin(int row, int col) {
         char[][] boardArray = board.getBoard();
         char symbol = boardArray[row][col];
-        // Check row
-        if (boardArray[row][0] == symbol && boardArray[row][1] == symbol && boardArray[row][2] == symbol)
-            return true;
-        // Check column
-        if (boardArray[0][col] == symbol && boardArray[1][col] == symbol && boardArray[2][col] == symbol)
-            return true;
-        // Check diagonals
-        if ((row == col || row + col == Board.getBoardSize() - 1) &&
-                (boardArray[0][0] == symbol && boardArray[1][1] == symbol && boardArray[2][2] == symbol ||
-                        boardArray[0][2] == symbol && boardArray[1][1] == symbol && boardArray[2][0] == symbol))
-            return true;
-        return false;
+        //Checks rows, columns, and diagonals for a win
+        boolean rowWin = (boardArray[row][0] == symbol && boardArray[row][1] == symbol && boardArray[row][2] == symbol);
+        boolean colWin = (boardArray[0][col] == symbol && boardArray[1][col] == symbol && boardArray[2][col] == symbol);
+        boolean diaWin1 = (row == col && boardArray[0][0] == symbol && boardArray[1][1] == symbol && boardArray[2][2] == symbol);
+        boolean diaWin2 = ((row + col == Board.getBoardSize() - 1) && boardArray[0][2] == symbol && boardArray[1][1] == symbol && boardArray[2][0] == symbol);
+
+        //return true if any of the conditions are true
+        return rowWin || colWin || diaWin1 || diaWin2;
     }
 
     private boolean checkDraw(char[][] boardArray) {
